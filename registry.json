@@ -12,7 +12,20 @@
       "devDependencies": ["lucide-react"],
       "files": [
         {
-          "path": "components/ui/chat-drawer.tsx",
+          "path": "components/chat-drawer/chat-drawer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+     {
+      "name": "hello-world",
+      "type": "registry:component",
+      "title": "Hello World",
+      "description": "A simple hello world component",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/new-york/hello-world/hello-world.tsx",
           "type": "registry:component"
         }
       ]
