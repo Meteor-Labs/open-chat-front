@@ -7,9 +7,8 @@
       "devDependencies": ["lucide-react"],
       "files": [
         {
-          "path": "registry/chat-drawer/chat-drawer.tsx",
-          "type": "registry:component",
-          "content": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/refs/heads/main/registry/chat-drawer/chat-drawer.tsx" 
+          "path": "chat-drawer/chat-drawer.tsx",
+          "type": "registry:component"
         }
       ]
     }
