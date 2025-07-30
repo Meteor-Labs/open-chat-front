@@ -6,7 +6,7 @@
   "description": "A reusable global drawer chat component with AI integration.",
   "devDependencies": [
     "lucide-react",
-    "ai",
+    "ai@beta",
     "@ai-sdk/react@beta",
     "@ai-sdk/openai"
   ],
