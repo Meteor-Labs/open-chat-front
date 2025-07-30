@@ -5,7 +5,10 @@
   "title": "Chat Drawer",
   "description": "A reusable global drawer chat component with AI integration.",
   "devDependencies": [
-    "lucide-react"
+    "lucide-react",
+    "ai",
+    "@ai-sdk/react@beta",
+    "@ai-sdk/openai"
   ],
   "registryDependencies": [
     "drawer",
