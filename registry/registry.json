@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "name": "open-chat-front",
+  "description": "Global chat drawer component with AI integration",
+  "url": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/registry",
+  "style": "new-york",
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  },
+  "components": [
+    {
+      "name": "chat-drawer",
+      "type": "components:ui",
+      "files": [
+        "ui/chat-drawer.tsx"
+      ],
+      "dependencies": [
+        "drawer",
+        "button", 
+        "input"
+      ],
+      "devDependencies": [
+        "lucide-react"
+      ]
+    }
+  ]
+}
