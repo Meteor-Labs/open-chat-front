@@ -1,11 +1,7 @@
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "open-chat-front",
-  "type": "registry:ui",
-  "description": "Global chat drawer component with AI integration",
   "homepage": "https://github.com/Meteor-Labs/open-chat-front",
-  "url": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/registry",
-  "style": "new-york",
   "items": [
     "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/registry/ui/chat-drawer.json"
   ]
