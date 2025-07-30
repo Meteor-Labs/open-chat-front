@@ -5,7 +5,7 @@
   "items": [
     {
       "name": "chat-drawer",
-      "type": "registry:component",
+      "type": "registry:block",
       "title": "Chat Drawer",
       "description": "A reusable global drawer chat component with AI integration.",
       "registryDependencies": ["drawer", "button", "input"],
