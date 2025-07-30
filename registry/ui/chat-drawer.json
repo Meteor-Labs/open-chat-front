@@ -7,7 +7,7 @@
       "devDependencies": ["lucide-react"],
       "files": [
         {
-          "path": "components/ui/chat-drawer.tsx",
+          "path": "registry/ui/chat-drawer.tsx",
           "type": "registry:component"
         }
       ]
