@@ -1,20 +1,14 @@
 {
-  "name": "chat-drawer",
-   "type": "registry:component",
-  "description": "Global chat drawer component with AI integration",
-  "registryDependencies": [
-    "drawer",
-    "button",
-    "input"
-  ],
-  "devDependencies": [
-    "lucide-react"
-  ],
-  "files": [
-    {
-      "name": "components/ui/chat-drawer.tsx",
-      "type":"registry:file",
-      "content": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/components/ui/chat-drawer.tsx"
+      "name": "chat-drawer",
+      "type": "registry:block",
+      "title": "Chat Drawer",
+      "description": "A reusable global drawer chat component with AI integration.",
+      "registryDependencies": ["drawer", "button", "input"],
+      "devDependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "components/ui/chat-drawer.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
-  ]
-}
