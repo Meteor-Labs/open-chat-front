@@ -13,7 +13,7 @@
   "files": [
     {
       "name": "components/ui/chat-drawer.tsx",
-     
+      "type":"registry:file",
       "content": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/components/ui/chat-drawer.tsx"
     }
   ]
