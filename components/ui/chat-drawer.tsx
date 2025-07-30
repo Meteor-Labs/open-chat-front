@@ -91,7 +91,7 @@ export function ChatDrawer() {
           <MessageCircle className="h-6 w-6" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-[80vh] max-h-[600px]">
+      <DrawerContent className="h-full w-96 ml-auto" data-vaul-drawer-direction="right">
         <DrawerHeader>
           <DrawerTitle>AI Chat Assistant</DrawerTitle>
         </DrawerHeader>
