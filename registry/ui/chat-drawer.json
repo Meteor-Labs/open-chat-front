@@ -1,6 +1,6 @@
 {
   "name": "chat-drawer",
-  "type": "registry:component",
+  "type": "registry:ui",
   "description": "Global chat drawer component with AI integration",
   "registryDependencies": [
     "drawer",
@@ -13,7 +13,7 @@
   "files": [
     {
       "name": "components/ui/chat-drawer.tsx",
-
+      "type": "registry:component",
       "content": "https://raw.githubusercontent.com/Meteor-Labs/open-chat-front/main/components/ui/chat-drawer.tsx"
     }
   ]
