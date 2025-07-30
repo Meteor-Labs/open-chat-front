@@ -1,45 +1,41 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useChat } from "@ai-sdk/react"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { MessageCircle, Send, Loader2 } from "lucide-react"
+import { useState } from "react";
+import { useChat } from "@ai-sdk/react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { MessageCircle, Send, Loader2 } from "lucide-react";
+import { DefaultChatTransport } from "ai";
 
 export function ChatDrawer() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [input, setInput] = useState("")
-  const { messages, sendMessage, status } = useChat()
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({
+      api: "http://localhost:3001/api/chat/dev-xynapse-ai-1753894361902",
+    }),
+  });
 
-  const isLoading = status === "streaming" || status === "submitted"
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!input.trim() || isLoading) return
-    
-    sendMessage({ role: "user", parts: [{ type: "text", text: input }] })
-    setInput("")
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleSubmit(e)
-    }
-  }
+  const isLoading = status === "streaming" || status === "submitted";
 
   const renderMessageContent = (message: any) => {
     if (message.parts) {
       return message.parts.map((part: any, index: number) => {
-        if (part.type === 'text') {
-          return <span key={index}>{part.text}</span>
+        if (part.type === "text") {
+          return <span key={index}>{part.text}</span>;
         }
-        return null
-      })
+        return null;
+      });
     }
-    return message.content || ""
-  }
+    return message.content || "";
+  };
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -52,7 +48,10 @@ export function ChatDrawer() {
           <MessageCircle className="h-6 w-6" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-full w-96 ml-auto" data-vaul-drawer-direction="right">
+      <DrawerContent
+        className="h-full w-96 ml-auto"
+        data-vaul-drawer-direction="right"
+      >
         <DrawerHeader>
           <DrawerTitle>AI Chat Assistant</DrawerTitle>
         </DrawerHeader>
@@ -67,7 +66,9 @@ export function ChatDrawer() {
               messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${
+                    message.role === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
                     className={`max-w-[80%] rounded-lg px-4 py-2 ${
@@ -95,11 +96,17 @@ export function ChatDrawer() {
               </div>
             )}
           </div>
-          <form onSubmit={handleSubmit} className="flex space-x-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage({ text: input });
+              setInput("");
+            }}
+            className="flex space-x-2"
+          >
             <Input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onChange={(e) => setInput(e.currentTarget.value)}
               placeholder="Type your message..."
               disabled={isLoading}
               className="flex-1"
@@ -119,5 +126,5 @@ export function ChatDrawer() {
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }
