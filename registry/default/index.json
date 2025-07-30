@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "open-chat-front-default",
+  "type": "registry:ui",
+  "items": [
+    {
+      "name": "chat-drawer",
+      "type": "registry:component",
+      "title": "Chat Drawer",
+      "description": "A reusable global drawer chat component with AI integration.",
+      "registryDependencies": ["drawer", "button", "input"],
+      "devDependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "registry/default/chat-drawer/chat-drawer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
