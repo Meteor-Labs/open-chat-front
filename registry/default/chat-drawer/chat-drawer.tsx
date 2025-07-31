@@ -1,84 +1,41 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { MessageCircle, Send, Loader2 } from "lucide-react"
-
-interface Message {
-  id: string
-  content: string
-  role: "user" | "assistant"
-  timestamp: Date
-}
+import { useState } from "react";
+import { useChat } from "@ai-sdk/react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { MessageCircle, Send, Loader2 } from "lucide-react";
+import { DefaultChatTransport } from "ai";
 
 export function ChatDrawer() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputValue, setInputValue] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({
+      api: "http://localhost:3001/api/chat/dev-xynapse-ai-1753894361902",
+    }),
+  });
 
-  const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return
+  const isLoading = status === "streaming" || status === "submitted";
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      content: inputValue.trim(),
-      role: "user",
-      timestamp: new Date()
+  const renderMessageContent = (message: any) => {
+    if (message.parts) {
+      return message.parts.map((part: any, index: number) => {
+        if (part.type === "text") {
+          return <span key={index}>{part.text}</span>;
+        }
+        return null;
+      });
     }
-
-    setMessages(prev => [...prev, userMessage])
-    setInputValue("")
-    setIsLoading(true)
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: userMessage.content,
-          history: messages
-        })
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to send message")
-      }
-
-      const data = await response.json()
-      
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.response,
-        role: "assistant",
-        timestamp: new Date()
-      }
-
-      setMessages(prev => [...prev, assistantMessage])
-    } catch (error) {
-      console.error("Error sending message:", error)
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: "Sorry, I encountered an error. Please try again.",
-        role: "assistant",
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, errorMessage])
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
-    }
-  }
+    return message.content || "";
+  };
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -91,7 +48,10 @@ export function ChatDrawer() {
           <MessageCircle className="h-6 w-6" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-full w-96 ml-auto" data-vaul-drawer-direction="right">
+      <DrawerContent
+        className="h-full w-96 ml-auto"
+        data-vaul-drawer-direction="right"
+      >
         <DrawerHeader>
           <DrawerTitle>AI Chat Assistant</DrawerTitle>
         </DrawerHeader>
@@ -106,7 +66,9 @@ export function ChatDrawer() {
               messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${
+                    message.role === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
                     className={`max-w-[80%] rounded-lg px-4 py-2 ${
@@ -115,9 +77,9 @@ export function ChatDrawer() {
                         : "bg-muted"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm">{renderMessageContent(message)}</p>
                     <p className="text-xs opacity-70 mt-1">
-                      {message.timestamp.toLocaleTimeString()}
+                      {new Date().toLocaleTimeString()}
                     </p>
                   </div>
                 </div>
@@ -134,18 +96,24 @@ export function ChatDrawer() {
               </div>
             )}
           </div>
-          <div className="flex space-x-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage({ text: input });
+              setInput("");
+            }}
+            className="flex space-x-2"
+          >
             <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
+              value={input}
+              onChange={(e) => setInput(e.currentTarget.value)}
               placeholder="Type your message..."
               disabled={isLoading}
               className="flex-1"
             />
             <Button
-              onClick={sendMessage}
-              disabled={!inputValue.trim() || isLoading}
+              type="submit"
+              disabled={!input.trim() || isLoading}
               size="icon"
             >
               {isLoading ? (
@@ -154,9 +122,9 @@ export function ChatDrawer() {
                 <Send className="h-4 w-4" />
               )}
             </Button>
-          </div>
+          </form>
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }
