@@ -8,12 +8,21 @@
       "name": "chat-drawer",
       "type": "registry:component",
       "title": "Chat Drawer",
-      "description": "A reusable global drawer chat component with AI integration.",
-      "registryDependencies": ["drawer", "button", "input"],
-      "devDependencies": ["lucide-react"],
+      "description": "A reusable global drawer chat component with AI integration. Features loading states with animations, close button with smooth transitions, ai chat integration and responsive design.",
+      "registryDependencies": [
+        "button",
+        "drawer",
+        "input"
+      ],
+      "devDependencies": [
+        "@ai-sdk/react",
+        "ai",
+        "lucide-react",
+        "react"
+      ],
       "files": [
         {
-          "path": "registry/new-york/chat-drawer/chat-drawer.tsx",
+          "path": "registry/chat-drawer/chat-drawer/chat-drawer.tsx",
           "type": "registry:component"
         }
       ]
@@ -23,7 +32,9 @@
       "type": "registry:component",
       "title": "Hello World",
       "description": "A simple hello world component",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/hello-world/hello-world.tsx",
