@@ -127,7 +127,7 @@ export function ChatDrawer() {
               type="submit"
               disabled={!input.trim() || isLoading}
               size="icon"
-              className="bg-blue-5qs00"
+              className="bg-black"
             >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
