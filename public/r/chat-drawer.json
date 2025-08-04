@@ -10,10 +10,10 @@
     "input"
   ],
   "devDependencies": [
-    "@ai-sdk/react",
-    "ai",
     "lucide-react",
-    "react"
+    "ai@beta",
+    "@ai-sdk/react@beta",
+    "@ai-sdk/openai"
   ],
   "files": [
     {
